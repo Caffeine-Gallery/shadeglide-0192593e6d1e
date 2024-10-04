@@ -1,5 +1,9 @@
 service : {
   getShaderCode: () -> (text) query;
+  getShaderExamples: () -> (vec record {
+                                  text;
+                                  text;
+                                }) query;
   getTime: () -> (int);
   updateShaderCode: (text) -> ();
 }

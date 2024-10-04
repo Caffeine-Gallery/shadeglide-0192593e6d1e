@@ -2,6 +2,7 @@ import { backend } from 'declarations/backend';
 
 let gl, program, timeLocation, resolutionLocation;
 let startTime;
+let shaderExamples = [];
 
 async function init() {
     const canvas = document.getElementById('glCanvas');
@@ -11,6 +12,9 @@ async function init() {
         console.error('WebGL not supported');
         return;
     }
+
+    shaderExamples = await backend.getShaderExamples();
+    populateShaderSelect();
 
     const shaderCode = await backend.getShaderCode();
     document.getElementById('shaderCode').value = shaderCode;
@@ -22,8 +26,26 @@ async function init() {
     onResize();
 
     document.getElementById('updateShader').addEventListener('click', updateShader);
+    document.getElementById('shaderSelect').addEventListener('change', onShaderSelect);
 
     requestAnimationFrame(render);
+}
+
+function populateShaderSelect() {
+    const select = document.getElementById('shaderSelect');
+    shaderExamples.forEach(([name, _], index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = name;
+        select.appendChild(option);
+    });
+}
+
+function onShaderSelect(event) {
+    const index = event.target.value;
+    const [_, shaderCode] = shaderExamples[index];
+    document.getElementById('shaderCode').value = shaderCode;
+    createShaderProgram(shaderCode);
 }
 
 function createShaderProgram(fragmentShaderSource) {

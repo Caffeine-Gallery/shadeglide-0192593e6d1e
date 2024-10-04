@@ -24,6 +24,16 @@ body {
     border-radius: 5px;
 }
 
+#shaderSelect {
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border: 1px solid #3a3a3a;
+    border-radius: 3px;
+    padding: 5px;
+}
+
 #shaderCode {
     width: 300px;
     height: 200px;
