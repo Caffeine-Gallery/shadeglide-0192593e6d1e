@@ -1,0 +1,5 @@
+service : {
+  getShaderCode: () -> (text) query;
+  getTime: () -> (int);
+  updateShaderCode: (text) -> ();
+}
